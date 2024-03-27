@@ -24,14 +24,47 @@
             </select>
             <div>
             
-               
-   
-    <!-- Contenido del formulario -->
-    <button type="submit" class="btn btn-success">Generar</button>
+    <button type="submit" class="btn btn-success btn-sm mt-3">Generar</button>
 </form>
 
 
-   </div>
 
-  
-@endsection
+<table class="table">
+<tr>
+    <th>Ordenes Generadas</th>
+</tr>
+
+<tr>
+    <th>secuencial</th>
+    <th>fecha</th>
+    <th>año lectivo</th>
+    <th>jornada</th>
+    <th>mes</th>
+    <th>acciones</th>
+</tr>
+@foreach($ordenes as $o)
+    <tr>
+        <td>{{$o->especial}}</td>
+        <td>{{$o->fecha}}</td>
+        <td>{{$o->anl_descripcion}}</td>
+        <td>{{$o->jor_descripcion}}</td>
+        <td>{{$o->mes}}</td>
+
+        <td>
+    <button class="btn btn-primary btn-sm mt-2">
+        <i class="fas fa-eye"></i> <!-- Icono para "Ver" -->
+    </button>
+    <button class="btn btn-success btn-sm mt-2">
+        <i class="fas fa-edit"></i> <!-- Icono para "Editar" -->
+    </button>
+    <button class="btn btn-danger btn-sm mt-2">
+        <i class="fas fa-trash-alt"></i> <!-- Icono para "Eliminar" -->
+    </button>
+</td>
+
+    </tr>
+    
+@endforeach
+</table>
+
+@endsection('content')

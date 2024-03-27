@@ -4,39 +4,39 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
-class GenerarOrdenes extends Model
+class GenerarOrdenes extends Model 
 {
-    use HasFactory;
-    protected $table='GenerarOrdenes';
-
+    protected $table='ordenes_generadas';
     protected $primaryKey='ord_id';
-
-    public $timestamps=false;
-
-   
-
-    protected $filiable =[
-        'mat_id' ,
-        'codigo' ,
-        'fecha_registro' ,
-        'valor_pagar' ,
-        'fecha_pago' ,
-        'valor_pagado' ,
-        'estado' ,
-        'mes' ,
-        'responsable' ,
-        'secuencial' ,
-        'documento' ,
+    public $timestamps= false ;
+    protected $fillable = [
+        'mat_id',
+        'fecha',
+        'mes',
+        'codigo',
+        'valor',
+        'fecha_pago',
+        'tipo',
+        'estado',
+        'responsable',
+        'obs',
+        'identificador',
+        'motivo',
+        'vpagado',
+        'f_acuerdo',
+        'ac_no',
+        'especial_code',
+        'especial',
+        'numero_documento'
     ];
 
+    public function matricula()
+    {
+        return $this->belongsTo(Matricula::class,'mat_id','id');
+    }
+    
 
- public function matricula()
- {
-    return $this->belongsTo(Matricula::class,'mat_id','id');
- }
-
-
-
-
+    use HasFactory;
 }
