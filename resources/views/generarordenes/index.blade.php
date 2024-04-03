@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
    <div class="container">
     <h3 class="text-center text-dark bg bg-success">Generar ordenes</h3>
     <form action="{{ route('generarOrdenes') }}" method="POST">
@@ -24,47 +27,51 @@
             </select>
             <div>
             
-    <button type="submit" class="btn btn-success btn-sm mt-3">Generar</button>
+               
+   
+    <!-- Contenido del formulario -->
+    <button type="submit" class="btn btn-success">Generar</button>
 </form>
+</div>
 
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Secuencial</th>
+            <th>Fecha</th>
+            <th>Año lectivo</th>
+            <th>Jornada</th>
+            <th>Mes</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($ordenes as $o)
+        <tr> <!-- Agregué la etiqueta <tr> para cada fila -->
+            <td>{{ $o->especial }}</td>
+            <td>{{ $o->fecha }}</td>
+            <td>{{ $o->anl_descripcion }}</td>
+            <td>{{ $o->jor_descripcion }}</td>
+            <td>{{ $o->mes }}</td>
 
-
-<table class="table">
-<tr>
-    <th>Ordenes Generadas</th>
-</tr>
-
-<tr>
-    <th>secuencial</th>
-    <th>fecha</th>
-    <th>año lectivo</th>
-    <th>jornada</th>
-    <th>mes</th>
-    <th>acciones</th>
-</tr>
-@foreach($ordenes as $o)
-    <tr>
-        <td>{{$o->especial}}</td>
-        <td>{{$o->fecha}}</td>
-        <td>{{$o->anl_descripcion}}</td>
-        <td>{{$o->jor_descripcion}}</td>
-        <td>{{$o->mes}}</td>
-
-        <td>
-    <button class="btn btn-primary btn-sm mt-2">
-        <i class="fas fa-eye"></i> <!-- Icono para "Ver" -->
+            <td class="d-flex">
+    <button type="button" class="btn btn-success me-1">
+        <span class="material-symbols-outlined">
+            visibility
+        </span>
     </button>
-    <button class="btn btn-success btn-sm mt-2">
-        <i class="fas fa-edit"></i> <!-- Icono para "Editar" -->
-    </button>
-    <button class="btn btn-danger btn-sm mt-2">
-        <i class="fas fa-trash-alt"></i> <!-- Icono para "Eliminar" -->
-    </button>
+
+    <form action="{{ route('eliminaorden') }}" method="POST" class="delete-form">
+        @csrf 
+        <input type="hidden" name="especial" value="{{ $o->especial }}">
+        <button type="submit" class="btn btn-danger btn-xs btn-delete" secuencial="{{ $o->especial }}">
+            <span class="material-symbols-outlined">delete</span>
+        </button>
+    </form>
 </td>
 
-    </tr>
-    
-@endforeach
+        </tr> <!-- Agregué la etiqueta de cierre </tr> -->
+        @endforeach
+    </tbody>
 </table>
-
-@endsection('content')
+@endsection

@@ -22,16 +22,20 @@ class GenerarOrdenesController extends Controller
 
         $periodos=DB::select("SELECT * FROM aniolectivo");
         $jornadas=DB::select("SELECT * FROM jornadas");
-        
+        $meses=$this->meses();
         $ordenes=DB::select("SELECT o.especial,fecha,j.jor_descripcion,o.mes,a.anl_descripcion
         FROM ordenes_generadas o
         JOIN matriculas m ON m.id=mat_id
         JOIN jornadas j ON j.id=m.jor_id
         JOIN aniolectivo a ON a.id=m.anl_id
-        GROUP BY o.especial,o.fecha,j.jor_descripcion,o.mes,a.anl_descripcion
+        GROUP BY o.especial,o.fecha,
+        j.jor_descripcion,
+        o.mes,
+        a.anl_descripcion
+        ORDEr BY o.especial
         
         ");
-        $meses=$this->meses();
+        // $meses=$this->meses();
         return view('generarordenes.index')
         ->with('periodos',$periodos)
         ->with('jornadas',$jornadas)
@@ -105,9 +109,9 @@ class GenerarOrdenesController extends Controller
             '9'=>'Septiembre',
             '10'=>'Octubre',
             '11'=>'Noviembre',
-            '12'=>'Diciembre',
+            '12'=>'Diciembre'
         ];
-        
+        return $meses;
     }
 
     public function mesesLetras($nmes){
@@ -124,7 +128,7 @@ class GenerarOrdenesController extends Controller
      $nmes==10?$result="O":"";
      $nmes==11?$result="N":"";
      $nmes==12?$result="D":"";
-     return $result;
+    // 
     }
 
     public function generarOrdenes(Request $rq){
@@ -132,60 +136,73 @@ class GenerarOrdenesController extends Controller
         $anl_id=$datos['anl_id'];
         $jor_id=$datos['jor_id'];
         $mes=$datos['mes'];
+
+
         $nmes=$this->mesesLetras($mes);
         $campus="G";
-        $secuenciales=DB::selectone("SELECT max(especial) as secuencial from ordenes_generadas");
-
-        $sec = $secuenciales->secuencial + 1;
-
-
-        $estudiantes=DB::select("SELECT *, m.id AS mat_id FROM matriculas m 
-        JOIN estudiantes e ON m.est_id=e.id
-        JOIN jornadas j ON m.jor_id=j.id
-        JOIN cursos c ON m.cur_id=c.id
-        JOIN especialidades es ON m.esp_id=es.id
-        WHERE m.anl_id=$anl_id
+       
+        $validar=DB::select("SELECT * FROM ordenes_generadas o
+        JOIN matriculas m ON m.id=o.mat_id
+        WHERE m.anl_id=$anl_id 
         AND m.jor_id=$jor_id
-        AND m.mat_estado=1 
-");
-        $valor_pagar=75;
-        
-        
-            foreach($estudiantes as $e)
-            {
-               
+        AND o.mes=$mes");
+        if(empty($validar)){
+ 
+            $secuenciales=DB::selectone("SELECT max(especial) as secuencial from ordenes_generadas");
 
-                $input['mat_id']=$e->mat_id; //id de la matricula
-                $input['fecha']=date('y-m-d');
-                $input['mes']=$mes;
-                $input['codigo']=$nmes.$campus.$e->jor_obs.$e->cur_obs.$e->esp_obs."-".$e->mat_id;   //MGM3IF-MAT_ID
-                $input['valor']=$valor_pagar;//
-                $input['fecha_pago']=NULL;//da el banco
-                $input['tipo']=NULL;
-                $input['estado']=0;//0=pendiente;pagado=1
-                $input['responsable']=Auth::user()->usu_nombres;//nomrbe del responsable
-                $input['obs']=NULL;
-                $input['identificador']=NULL;
-                $input['motivo']=NULL;
-                $input['vpagado']=0;//da el banco
-                $input['f_acuerdo']=NULL;
-                $input['ac_no']=NULL;
-                $input['especial_code']=NULL;
-                $input['especial']=$sec;//
-                $input['numero_documento']=NULL;//numero de edocumento que pago el usuario
-                GenerarOrdenes::create($input);
-                
-
-            }
-            return redirect(route('generar_ordenes') );
-
-
-    }
-
-    public function matricula()
-    {
-        return $this->belongsTo(Matricula::class,'mat_id','id');
-    }
+            $sec = $secuenciales->secuencial + 1;
     
-
+    
+            $estudiantes=DB::select("SELECT *, m.id AS mat_id FROM matriculas m 
+            JOIN estudiantes e ON m.est_id=e.id
+            JOIN jornadas j ON m.jor_id=j.id
+            JOIN cursos c ON m.cur_id=c.id
+            JOIN especialidades es ON m.esp_id=es.id
+            WHERE m.anl_id=$anl_id
+            AND m.jor_id=$jor_id
+            AND m.mat_estado=1 
+    ");
+            $valor_pagar=75;
+            
+            
+                foreach($estudiantes as $e)
+                {
+                   
+    
+                    $input['mat_id']=$e->mat_id; //id de la matricula
+                    $input['fecha']=date('y-m-d');
+                    $input['mes']=$mes;
+                    $input['codigo']=$nmes.$campus.$e->jor_obs.$e->cur_obs.$e->esp_obs."-".$e->mat_id;   //MGM3IF-MAT_ID
+                    $input['valor']=$valor_pagar;//
+                    $input['fecha_pago']=NULL;//da el banco
+                    $input['tipo']=NULL;
+                    $input['estado']=0;//0=pendiente;pagado=1
+                    $input['responsable']=Auth::user()->usu_nombres;//nomrbe del responsable
+                    $input['obs']=NULL;
+                    $input['identificador']=NULL;
+                    $input['motivo']=NULL;
+                    $input['vpagado']=0;//da el banco
+                    $input['f_acuerdo']=NULL;
+                    $input['ac_no']=NULL;
+                    $input['especial_code']=NULL;
+                    $input['especial']=$sec;//
+                    $input['numero_documento']=NULL;//numero de edocumento que pago el usuario
+                    GenerarOrdenes::create($input);
+                    
+    
+                }
+                return redirect(route('generar_ordenes') );
+    
+    
+        }else {
+            dd("YA EXISTE");
+        }
+}
+public function eliminaorden(Request $rq){
+  $dt=$rq->all(); 
+  $especial=$dt['especial'];
+  $ordenes=GenerarOrdenes::where('especial',$especial)->delete();
+  return redirect(route('generar_ordenes'));
+}
+ 
 }

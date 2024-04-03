@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
     <style>
-      
-
         body {
-         background:#23201F center center fixed;
-            background-size: cover; 
+            background: linear-gradient(to right, #2F80ED, #56CCF2); /* Fondo degradado azul */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -18,10 +16,10 @@
         }
 
         .login-container {
-            background-color: #1c1c1c; /* Fondo oscuro */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1); /* Fondo semitransparente */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 30px;
             width: 300px;
             max-width: 80%;
         }
@@ -34,50 +32,55 @@
             display: block;
             font-size: 14px;
             margin-bottom: 8px;
-            color: #ccc; /* Texto gris claro */
+            color: #fff; /* Texto blanco */
         }
 
         .form-group input {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #333; /* Borde gris oscuro */
-            border-radius: 4px;
-            background-color: #333; /* Fondo gris oscuro */
+            padding: 12px;
+            border: 1px solid #fff; /* Borde blanco */
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.2); /* Fondo semitransparente */
             color: #fff; /* Texto blanco */
+            transition: border-color 0.3s ease;
         }
 
-        .remember-me {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-
-        .remember-me label {
-            font-size: 14px;
-            color: #ccc;
+        .form-group input:focus {
+            outline: none;
+            border-color: #2ecc71; /* Borde verde al enfocar */
         }
 
         .login-button {
-            background-color: #d9534f; /* Rojo oscuro (Berserk) */
+            background-color: #2ecc71; /* Verde */
             color: #fff;
-            padding: 10px 15px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         .login-button:hover {
-            background-color: #c9302c; /* Rojo más oscuro al hacer hover */
+            background-color: #27ae60; /* Verde más oscuro al hacer hover */
+        }
+
+        h2 {
+            text-align: center;
+            color: #fff; /* Texto blanco */
+            margin-bottom: 20px;
+        }
+
+        .login-info {
+            text-align: center;
+            color: #fff; /* Texto blanco */
+            margin-top: 20px;
         }
     </style>
-    <title>Login</title>
 </head>
 <body>
 
 <div class="login-container">
-    <h2 style="text-align: center; color: #ccc;">Iniciar Sesión</h2>
+    <h2>Iniciar Sesión</h2>
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
@@ -92,20 +95,15 @@
             <input type="password" id="password" name="password" required>
         </div>
 
-        <!-- <div class="remember-me">
-            <label for="remember_me">
-                <input id="remember_me" type="checkbox" name="remember"> Recordarme
-            </label>
-            @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a>
-            @endif
-        </div> -->
-
-        <div style="text-align: center; margin-top: 20px;">
+        <div style="text-align: center;">
             <button type="submit" class="login-button">Ingresar</button>
         </div>
     </form>
+
+    <div class="login-info">
+    <p>¿No tienes una cuenta? <a href="{{ route('register') }}">Regístrate aquí</a></p>
 </div>
+
 
 </body>
 </html>
