@@ -66,10 +66,28 @@ class GenerarOrdenesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show($especial)
+{
+    // Define la consulta SQL con un marcador de posición para el parámetro $especial
+    $query = "SELECT * FROM ordenes_generadas o
+              JOIN matriculas m ON o.mat_id = m.id
+              JOIN estudiantes e ON m.est_id = e.id
+              JOIN jornadas j ON m.jor_id = j.id
+              JOIN especialidades es ON m.esp_id = es.id
+              JOIN cursos c ON m.cur_id = c.id
+              WHERE especial = ?";
+
+    // Ejecuta la consulta pasando el parámetro $especial como segundo argumento
+    $ordenes = DB::select($query, [$especial]);
+
+    // Muestra los resultados
+
+
+       return view('generarordenes.show')
+    ->with('ordenes',$ordenes);
+      
+    } 
+    
 
     /**
      * Show the form for editing the specified resource.

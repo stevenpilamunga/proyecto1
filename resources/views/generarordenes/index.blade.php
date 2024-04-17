@@ -55,12 +55,9 @@
             <td>{{ $o->mes }}</td>
 
             <td class="d-flex">
-    <button type="button" class="btn btn-success me-1">
-        <span class="material-symbols-outlined">
-            visibility
-        </span>
-    </button>
-
+            <a href="{{ route('ordenes_generadas.show', $o->especial) }}" class="btn btn-success me-1">
+    <span class="material-symbols-outlined">visibility</span>
+</a>
     <form action="{{ route('eliminaorden') }}" method="POST" class="delete-form">
         @csrf 
         <input type="hidden" name="especial" value="{{ $o->especial }}">
@@ -69,6 +66,7 @@
         </button>
     </form>
 </td>
+
 
         </tr> <!-- Agregué la etiqueta de cierre </tr> -->
         @endforeach

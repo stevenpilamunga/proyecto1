@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/generar_ordenes',[GenerarOrdenesController::class,'index'])->name('generar_ordenes');
     Route::post('/generarOrdenes', [GenerarOrdenesController::class, 'generarOrdenes'])->name('generarOrdenes');
     Route::post('/eliminaorden',[GenerarOrdenesController::class,'eliminaorden'])->name('eliminaorden'); // Corregí la ruta
+    Route::get('/ordenes_generadas.show/{especial}', [GenerarOrdenesController::class, 'show'])->name('ordenes_generadas.show');
 
 });
 
