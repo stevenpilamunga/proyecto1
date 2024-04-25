@@ -7,52 +7,38 @@
 <h3 class="text-center">Esta es la vista de Cursos</h3>
 <a href="{{ route('cursos.create') }}" class="btn btn-success">Nuevo Curso</a>
     
-    <table class="table">
-
+<table class="table">
+    <thead>
         <tr>
             <th>#</th>
-            <th>Titulo</th>
-            <th>Descripcion</th>
-            <th>Grupo</th>
-            <th>Estado</th>
+            <th>Descripción</th>
+            <th>Observación</th>
+            <th>Tipo</th>
             <th>Acciones</th>
-            
         </tr>
-
-        @foreach($cursos as $c)
-           
+    </thead>
+    <tbody>
+        @foreach ($cursos as $curso)
         <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $c->cur_titulo }}</td>
-            <td>{{ $c->cur_descripcion }}</td>
-            <td>{{ $c->cur_grupo }}</td>
-            <td>{{ $c->cur_estado==1?'Activo':'Inactivo' }}</td>
+            <td>{{ $curso->cur_id }}</td>
+            <td>{{ $curso->descripcion }}</td>
+            <td>{{ $curso->observacion }}</td>
+            <td>{{ $curso->tipo }}</td>
             <td>
-                
-            <a href="{{ route('cursos.edit',$c->cur_id) }}" class="btn btn-primary btn-sm">
-            <span class="material-symbols-outlined">
-edit
-</span> 
-</a>
-            
-            <form action="{{ route('cursos.destroy',$c->cur_id)}}" method="POST" onsubmit="return confirm('Desea eliminar el curso?')">
-
-            @csrf
-            @method('DELETE')
-            <button type="submit" class=" btn btn-danger btn-sm"><span class="material-symbols-outlined">
-delete
-</span>
-</button>
-
-        </form>
-        </td>
-           
+                <a href="{{ route('cursos.edit', $curso->cur_id) }}" class="btn btn-primary btn-sm">
+                    <span class="material-symbols-outlined">edit</span>
+                </a>
+                <form action="{{ route('cursos.destroy', $curso->cur_id) }}" method="POST" onsubmit="return confirm('Desea eliminar el curso?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                </form>
+            </td>
         </tr>
-
         @endforeach
-
-
-
-    </table>
+    </tbody>
+</table>
 
 @endsection

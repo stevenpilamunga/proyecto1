@@ -271,7 +271,7 @@ public function buscar(Request $rq) {
 public function exportarOrdenes($especial)
 {
 // $orden = GeneraOrdenes::where('secuencial', $secuencial)->get();
-$orden = GenerarOrdenes::select(
+$ordenes = GenerarOrdenes::select(
 DB::raw("'CO' as CO"),
 'estudiantes.est_cedula',
 'ordenes_generadas.codigo'
@@ -287,6 +287,6 @@ DB::raw("'CO' as CO"),
 // dd($orden);
 
 
-return Excel::download(new OrdenesExport($orden), 'ordenes.xlsx');
+return Excel::download(new OrdenesExport($ordenes), 'ordenes.xlsx');
 }
 }

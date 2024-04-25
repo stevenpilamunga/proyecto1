@@ -1,103 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    .navbar-brand i {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
 
-        <meta name="description" content="">
-        <meta name="author" content="Tooplate">
-
-        <title>inicio</title>
-
-        <!-- CSS FILES -->      
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        
-        <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700&display=swap" rel="stylesheet">
-
-        <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-
-        <link href="{{asset('css/bootstrap-icons.css')}}" rel="stylesheet">
-
-        <link href="{{asset('css/apexcharts.css')}}" rel="stylesheet">
-
-        <link href="{{asset('css/tooplate-mini-finance.css')}}" rel="stylesheet">
-        
-<!--
-
-Tooplate 2135 Mini Finance
-
-https://www.tooplate.com/view/2135-mini-finance
-
-Bootstrap 5 Dashboard Admin Template
-
--->
-
-    </head>
-    
-    <body>
-        <header class="navbar sticky-top flex-md-nowrap">
-            <div class="col-md-3 col-lg-3 me-0 px-3 fs-6">
-                <a class="navbar-brand" href="{{route('dashboard')}}">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <div class="container">
+  <a class="navbar-brand" href="{{route('dashboard')}}">
                     <i class="bi-box text-danger"></i>
                     Steven
                 </a>
-            </div>
-
-            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            
-
-            
-        </header>
-
-        <div class="container-fluid">
-            <div class="row">
-                <nav id="sidebarMenu" class="col-md-3 col-lg-3 d-md-block sidebar collapse">
-                    <div class="position-sticky py-4 px-2 sidebar-sticky">
-                        <ul class="nav flex-column h-100">
-                            <li class="nav-item">
-                                <a class=".nav-link.active {color: blue;}" aria-current="page" href="{{route('dashboard')}}">
-                                    <i class="bi-house-fill me-2"></i>
-                                    Inicio
-                                </a>
-                            </li>
-                            <!-- <li class="nav-item">
-    <a class=".nav-link.active {color: blue;}" aria-current="page" href="{{route('dashboard')}}" style="color: blue;">
-        <i class="bi-house-fill me-2"></i>
-        Inicio
-    </a>
-</li> -->
-
-
-
-                            <li class="nav-item">
-                            
-                             <a class=".nav-link.active {color:;}" href="{{ route('cursos.index') }}" style="color: blue;">CURSOS</a>
-                             
-                                    </i>
-                                    </li>
-                                    <li class="nav-item">
-                            
-                            <a class=".nav-link.active {color:;}" href="{{ route('generar_ordenes') }}" style="border: radius 6px; color:blue;">Generar ordenes</a>
-                            
-                                   </i>
-                                   </li>
-                                    
-                                    <li class="nav-item">
-                                    
-                                    <a class=".nav-link.active {color: blue;}" href="{{ route('users.index') }}" style="color: blue;">Usuarios</a>
-                            </li>
-
-                           
-
-                            <li class="nav-item border-top mt-auto pt-2" >
-                            <form method="POST" action="{{ route('logout') }}">
-                            <i class="bi-box-arrow-left me-2"></i>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}">
+            <i class="fas fa-home me-2"></i>
+            Inicio
+          </a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"  href="{{ route('cursos.index') }}" >Cursos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('generar_ordenes') }}">Generar Órdenes</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('users.index') }}">Usuarios</a>
+        </li>
+        <li class="nav-item">
+          
+             
+              <form method="POST" action="{{ route('logout') }}" class="nav-link btn btn-link text-danger">
+                            <i class="fas fa-sign-out-alt me-1"></i>
                               @csrf
                             <x-dropdown-link  :href="route('logout')"
                                     onclick="event.preventDefault();
@@ -107,114 +64,71 @@ Bootstrap 5 Dashboard Admin Template
                             </li>
                             </x-dropdown-link>
                         </form>
-                              
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
+<!-- Page Content -->
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="col-md-3 col-lg-3 d-md-block sidebar collapse">
+      <div class="position-sticky py-4 px-2 sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}">
+            <i class="fas fa-home me-2"></i>
+            Inicio
+          </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  href="{{ route('cursos.index') }}" >Cursos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('generar_ordenes') }}">Generar Órdenes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('users.index') }}">Usuarios</a>
+          </li>
+          <li class="nav-item">
+          
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-
-                    </ul>
-
-                </div>
-
-            </nav>
-
-
-                                <main class="main-wrapper col-md-9 ms-sm-auto py-4 col-ñg-9 px-md-4 border-start">
-                                <div class="tittle-group mb-3">
-                                <h4 class="text-center mb-0">Area de Trabajo</h4>
-                                  @yield('content')
-
-                                </section>
-                          </main>
-                   
+    <!-- Main Content -->
+    <main class="col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4">
+      <div class="tittle-group mb-3">
+        <h4 class="text-center mb-0">Área de Trabajo</h4>
+        @yield('content')
+      </div>
+    </main>
+  </div>
 </div>
-            </div>
-        </div>
 
-        <!-- JAVASCRIPT FILES -->
-        <script src="{{asset('js/jquery.min.js')}}"></script>
-        <script src="{{asset('js/jquery.min.js')}}"></script>
-        <script src="{{asset('js/apexcharts.min.js')}}"></script>
-        <script src="{{asset('js/custom.js')}}"></script>
-
-        <script type="text/javascript">
-            var options = {
-              series: [13, 43, 22],
-              chart: {
-              width: 380,
-              type: 'pie',
-            },
-            labels: ['Balance', 'Expense', 'Credit Loan',],
-            responsive: [{
-              breakpoint: 480,
-              options: {
-                chart: {
-                  width: 200
-                },
-                legend: {
-                  position: 'bottom'
-                }
-              }
-            }]
-            };
-
-            var chart = new ApexCharts(document.querySelector("#pie-chart"), options);
-            chart.render();
-        </script>
-
-        <script type="text/javascript">
-            var options = {
-              series: [{
-              name: 'Income',
-              data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-            }, {
-              name: 'Expense',
-              data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-            }, {
-              name: 'Transfer',
-              data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-            }],
-              chart: {
-              type: 'bar',
-              height: 350
-            },
-            plotOptions: {
-              bar: {
-                horizontal: false,
-                columnWidth: '55%',
-                endingShape: 'rounded'
-              },
-            },
-            dataLabels: {
-              enabled: false
-            },
-            stroke: {
-              show: true,
-              width: 2,
-              colors: ['transparent']
-            },
-            xaxis: {
-              categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-            },
-            yaxis: {
-              title: {
-                text: '$ (thousands)'
-              }
-            },
-            fill: {
-              opacity: 1
-            },
-            tooltip: {
-              y: {
-                formatter: function (val) {
-                  return "$ " + val + " thousands"
-                }
-              }
-            }
-            };
-
-            var chart = new ApexCharts(document.querySelector("#chart"), options);
-            chart.render();
-        </script>
-
-    </body>
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

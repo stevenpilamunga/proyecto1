@@ -62,7 +62,7 @@
                             <span class="material-symbols-outlined">delete</span>
                         </button>
                     </form>
-                    <a href="{{ route('exportarOrdenes', $o->especial) }}" class="btn btn-success me-1"> <!-- Agregué "#" en el href -->
+                    <a href="{{ route('exportarOrdenes', $o->especial) }}" class="btn btn-warning me-1"> <!-- Agregué "#" en el href -->
                     <span class="material-symbols-outlined">
                     upload_file
                     </span>

@@ -29,12 +29,25 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+     // Rutas relacionadas con el perfil del usuario
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::resource('cursos',CursosController::class);
+// Rutas de recursos para los  usuarios
+    
     Route::resource('users',UsersController::class);
+    
+
+// Rutas de recursos para los cursos 
+    Route::get('/cursos', [CursosController::class, 'index'])->name('cursos.index');
+    Route::get('/cursos/create', [CursosController::class, 'create'])->name('cursos.create');
+    Route::post('/cursos', [CursosController::class, 'store'])->name('cursos.store');
+    Route::get('/cursos/{curso}/edit', [CursosController::class, 'edit'])->name('cursos.edit');
+    Route::put('/cursos/{curso}', [CursosController::class, 'update'])->name('cursos.update');
+    Route::delete('/cursos/{curso}', [CursosController::class, 'destroy'])->name('cursos.destroy');
+    
+    
+ // Rutas relacionadas con la generación de órdenes
     Route::get('/generar_ordenes',[GenerarOrdenesController::class,'index'])->name('generar_ordenes');
     Route::post('/generarOrdenes', [GenerarOrdenesController::class, 'generarOrdenes'])->name('generarOrdenes');
     Route::post('/eliminaorden',[GenerarOrdenesController::class,'eliminaorden'])->name('eliminaorden'); // Corregí la ruta

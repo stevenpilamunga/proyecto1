@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Cursos;
-use DB;
+use Illuminate\Http\Request;
+
 class CursosController extends Controller
 {
     /**
@@ -12,26 +12,17 @@ class CursosController extends Controller
      */
     public function index()
     {
-        //dd('estoy en la funcion index');
-        //para listar los datos
-
-        $cursos=DB::select("SELECT * FROM cursos");
-       
-
-        //dd($cursos);
-        return view('cursos.index')
-        ->with('cursos',$cursos)
-        ;
+        $cursos = Cursos::all();
+        return view('cursos.index', compact('cursos'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {       
-        
-        return view('cursos.create');
-        //mostrar la vista de registro nuevo
+    {
+        //
     }
 
     /**
@@ -39,55 +30,38 @@ class CursosController extends Controller
      */
     public function store(Request $request)
     {
-        $input=$request->all();
-        Cursos::create($input);
-        return Redirect(route('cursos.index') );
-        //guardar los datos del registro
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Cursos $cursos)
     {
-        //muestra datos
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($cur_id)
+    public function edit(Cursos $cursos)
     {
-        //vista de formulario de edicion con los datos
-       $curso=Cursos::find($cur_id);
-       return view('cursos.edit')
-    ->with('curso',$curso);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,  $cur_id)
+    public function update(Request $request, Cursos $cursos)
     {
-        //actualizar
-        $input=$request->all();
-        $cursos=Cursos::find($cur_id);
-        $cursos->update($input);
-        return redirect(route('cursos.index'));
-
-
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($cur_id)
+    public function destroy(Cursos $cursos)
     {
-        //eliminar
-        $cursos=Cursos::find($cur_id);
-        $cursos->delete();
-        return redirect()->route('cursos.index');
-
-
+        //
     }
 }
