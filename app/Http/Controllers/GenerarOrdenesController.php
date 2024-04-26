@@ -224,45 +224,6 @@ public function eliminaorden(Request $rq){
   $ordenes=GenerarOrdenes::where('especial',$especial)->delete();
   return redirect(route('generar_ordenes'));
 }
-public function mostrar($secuencial){
-    $estudiantes=DB::select("SELECT * from ordenes_generadas o 
-                            JOIN matriculas m ON m.id=o.mat_id
-                            JOIN estudiantes e ON e.id=m.est_id
-                            JOIN especialidades esp ON esp.id = m.esp_id
-                            JOIN cursos cur ON cur.id = m.cur_id
-                            JOIN jornadas jor ON jor.id=m.jor_id
-                            where secuencial=$secuencial
-                            order by e.est_nombres
-                            limit 20
-                 ");
-    return view('generaOrdenes.mostrar')
-        ->with('estudiantes', $estudiantes)
-        ->with('secuencial', $secuencial);
-}
-
-public function buscar(Request $rq) {
-
-    // Realiza la consulta utilizando el valor de $dato
-    $dato=($rq->buscar);
-    $secuencial=($rq->secuencial);
-    $estudiantes = DB::select("SELECT * 
-                            FROM ordenes_generadas o
-                            JOIN matriculas m ON m.id = o.mat_id
-                            JOIN estudiantes e ON e.id = m.est_id
-                            JOIN especialidades esp ON esp.id = m.esp_id
-                            JOIN cursos cur ON cur.id = m.cur_id
-                            JOIN jornadas jor ON jor.id=m.jor_id
-                            WHERE (UPPER(e.est_nombres) LIKE UPPER('%$dato%') OR UPPER(e.est_apellidos) LIKE UPPER('%$dato%')) AND secuencial=$secuencial;
-    ");
-
-    // Pasa los resultados de la consulta y $dato a la vista
-    return view('generaOrdenes.buscar')
-        ->with('estudiantes', $estudiantes)
-        ->with('secuencial', $secuencial);
-}
- 
-
-
 
 //excel
 
