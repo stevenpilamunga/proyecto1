@@ -78,26 +78,41 @@
       <div class="position-sticky py-4 px-2 sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}">
-            <i class="fas fa-home me-2"></i>
-            Inicio
-          </a>
+            <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}">
+              <i class="fas fa-home me-2"></i>
+              Inicio
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"  href="{{ route('cursos.index') }}" >Cursos</a>
+            <a class="nav-link" data-bs-toggle="collapse" href="#submenu-cursos" role="button" aria-expanded="false" aria-controls="submenu-cursos">
+              <i class="fas fa-book-open me-2"></i>
+              Cursos
+            </a>
+            <div class="collapse" id="submenu-cursos">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('cursos.index') }}">Todos los cursos</a>
+                </li>
+                <!-- Agrega más opciones de cursos si es necesario -->
+              </ul>
+            </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('generar_ordenes') }}">Generar Órdenes</a>
+            <a class="nav-link" href="{{ route('generar_ordenes') }}">
+              <i class="fas fa-cart-plus me-2"></i>
+              Generar Órdenes
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('users.index') }}">Usuarios</a>
-          </li>
-          <li class="nav-item">
-          
+            <a class="nav-link" href="{{ route('users.index') }}">
+              <i class="fas fa-users me-2"></i>
+              Usuarios
+            </a>
           </li>
         </ul>
       </div>
     </nav>
+
 
     <!-- Main Content -->
     <main class="col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4">

@@ -55,13 +55,13 @@
                         <span class="material-symbols-outlined">visibility</span>
                     </a>
                     <form action="{{ route('eliminaorden') }}" method="POST" class="delete-form">
-                        @csrf
-                        @method('DELETE') <!-- Agregué este campo para el método DELETE -->
-                        <input type="hidden" name="especial" value="{{ $o->especial }}">
-                        <button type="submit" class="btn btn-danger btn-xs btn-delete" secuencial="{{ $o->especial }}">
-                            <span class="material-symbols-outlined">delete</span>
-                        </button>
-                    </form>
+        @csrf 
+        <input type="hidden" name="especial" value="{{ $o->especial }}">
+        <button type="submit" class="btn btn-danger btn-xs btn-delete" secuencial="{{ $o->especial }}">
+            <span class="material-symbols-outlined">delete</span>
+        </button>
+    </form>
+
                     <a href="{{ route('exportarOrdenes', $o->especial) }}" class="btn btn-warning me-1"> <!-- Agregué "#" en el href -->
                     <span class="material-symbols-outlined">
                     upload_file
